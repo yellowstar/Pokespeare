@@ -14,5 +14,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Pokespeare.Models\Pokespeare.Models.csproj" />
+    <ProjectReference Include="..\Pokespeare.Service\Pokespeare.Service.csproj" />
+  </ItemGroup>
+
 
 </Project>

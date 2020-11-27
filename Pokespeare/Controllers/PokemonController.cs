@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Pokespeare.Models;
+using Pokespeare.Service.Interfaces;
+using System.Threading.Tasks;
 
 namespace Pokespeare.Controllers
 {
@@ -8,16 +11,26 @@ namespace Pokespeare.Controllers
 	public class PokemonController : ControllerBase
 	{
 		private readonly ILogger<PokemonController> _logger;
+		private readonly ILoggerFactory _loggerFactory;
+		private readonly IPokespeareWorker _pokespeareWorker;
 
-		public PokemonController(ILogger<PokemonController> logger)
+		public PokemonController(ILoggerFactory loggerFactory, IPokespeareWorker pokespeareWorker)
 		{
-			_logger = logger;
+			_loggerFactory = loggerFactory;
+			_logger = _loggerFactory.CreateLogger<PokemonController>();
+			_pokespeareWorker = pokespeareWorker;
 		}
 
 		[HttpGet("{pokemonName}/{translation?}")]
-		public IActionResult Index([FromRoute(Name = "pokemonName")] string PokemonName, [FromRoute(Name = "translation")] string Translation)
+		public async Task<IActionResult> Index([FromRoute(Name = "pokemonName")] string PokemonName, [FromRoute(Name = "translation")] string Translation)
 		{
-			return Ok();
+			_logger.LogDebug($"Pokemon translation invoked with Pokemon name: {PokemonName}");
+
+			var result = await _pokespeareWorker.TranslatePokemon(PokemonName, Models.Translation.Shakespeare);
+
+			// Check the result type
+
+			return Ok(result.Content);
 		}
 	}
 }
