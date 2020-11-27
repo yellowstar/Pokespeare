@@ -94,5 +94,23 @@ namespace Pokespeare.Tests
 			// Assert
 			var value = result.Should().BeBadRequestResult();
 		}
+
+
+		[Test]
+		public async Task GivenInvalidTranslation_WhenTranslated_ThenControllerShouldReturnNoContent()
+		{
+			// Arrange
+			string pokemonName = "Test Pokemon";
+			string translation = "Invalid";
+
+			_mockPokespeareWorker.Setup(pw => pw.TranslatePokemon(It.IsAny<string>(), It.IsAny<Models.Translation>())).ReturnsAsync(new ServiceResult<TranslatedPokemon>(Result.NoTranslation, $"No translation for {translation}", null));
+			var controller = new PokemonController(_mockLoggerFactory, _mockPokespeareWorker.Object);
+
+			// Act
+			var result = await controller.Index(pokemonName, translation);
+
+			// Assert
+			var value = result.Should().BeNoContentResult();
+		}
 	}
 }

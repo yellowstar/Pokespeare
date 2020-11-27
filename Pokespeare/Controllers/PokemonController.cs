@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Pokespeare.Models;
 using Pokespeare.Service.Interfaces;
+using System;
 using System.Threading.Tasks;
 
 namespace Pokespeare.Controllers
@@ -23,11 +24,18 @@ namespace Pokespeare.Controllers
 		}
 
 		[HttpGet("{pokemonName}/{translation?}")]
-		public async Task<IActionResult> Index([FromRoute(Name = "pokemonName")] string PokemonName, [FromRoute(Name = "translation")] string Translation)
+		public async Task<IActionResult> Index([FromRoute(Name = "pokemonName")] string pokemonName, [FromRoute(Name = "translation")] string translation)
 		{
-			_logger.LogDebug($"Pokemon translation invoked with Pokemon name: {PokemonName}");
+			_logger.LogDebug($"Pokemon translation invoked with Pokemon name: {pokemonName}");
 
-			var result = await _pokespeareWorker.TranslatePokemon(PokemonName, Models.Translation.Shakespeare);
+			// TODO: Convert the incoming translation into the requisite Translation enum
+			Translation t;
+			if (!Enum.TryParse<Translation>(translation, true, out t))
+			{
+				return NoContent();
+			}
+
+			var result = await _pokespeareWorker.TranslatePokemon(pokemonName, t);
 
 			_logger.LogDebug($"{result.Result}: {result.Message}");
 
