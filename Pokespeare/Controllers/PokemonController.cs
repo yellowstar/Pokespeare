@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Pokespeare.Models;
 using Pokespeare.Service.Interfaces;
@@ -28,9 +29,32 @@ namespace Pokespeare.Controllers
 
 			var result = await _pokespeareWorker.TranslatePokemon(PokemonName, Models.Translation.Shakespeare);
 
-			// Check the result type
+			_logger.LogDebug($"{result.Result}: {result.Message}");
 
-			return Ok(result.Content);
+			switch (result.Result)
+			{
+				case Result.OK:
+					{
+						return Ok(result.Content);
+					}
+				case Result.NotFound:
+					{
+						return NotFound();
+					}
+				case Result.NoTranslation:
+					{
+						return NoContent();
+					}
+				case Result.Error:
+					{
+						return BadRequest();
+					}
+				default:
+					{
+						return StatusCode(StatusCodes.Status500InternalServerError);
+					}
+			}
+
 		}
 	}
 }

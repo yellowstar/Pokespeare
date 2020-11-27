@@ -33,7 +33,7 @@ namespace Pokespeare.Tests
 			Translation translation = Translation.Shakespeare; 
 			TranslatedPokemon translatedPokemon = new TranslatedPokemon();
 
-			_mockPokespeareWorker.Setup(pw => pw.TranslatePokemon(It.IsAny<string>(), It.IsAny<Models.Translation>())).ReturnsAsync(new Models.ServiceResult<TranslatedPokemon>(Result.OK, string.Empty, translatedPokemon));
+			_mockPokespeareWorker.Setup(pw => pw.TranslatePokemon(It.IsAny<string>(), It.IsAny<Models.Translation>())).ReturnsAsync(new ServiceResult<TranslatedPokemon>(Result.OK, string.Empty, translatedPokemon));
 			var controller = new PokemonController(_mockLoggerFactory, _mockPokespeareWorker.Object);
 
 			// Act
@@ -51,7 +51,7 @@ namespace Pokespeare.Tests
 			string pokemonName = "Test Pokemon";
 			Translation translation = Translation.Shakespeare;
 
-			_mockPokespeareWorker.Setup(pw => pw.TranslatePokemon(It.IsAny<string>(), It.IsAny<Models.Translation>())).ReturnsAsync(new Models.ServiceResult<TranslatedPokemon>(Result.NotFound, $"{pokemonName} not found", null));
+			_mockPokespeareWorker.Setup(pw => pw.TranslatePokemon(It.IsAny<string>(), It.IsAny<Models.Translation>())).ReturnsAsync(new ServiceResult<TranslatedPokemon>(Result.NotFound, $"{pokemonName} not found", null));
 			var controller = new PokemonController(_mockLoggerFactory, _mockPokespeareWorker.Object);
 
 			// Act
@@ -59,6 +59,40 @@ namespace Pokespeare.Tests
 
 			// Assert
 			var value = result.Should().BeNotFoundResult();
+		}
+
+		[Test]
+		public async Task GivenNoTranslationResult_WhenTranslated_ThenControllerShouldReturnNoContent()
+		{
+			// Arrange
+			string pokemonName = "Test Pokemon";
+			Translation translation = Translation.Shakespeare;
+
+			_mockPokespeareWorker.Setup(pw => pw.TranslatePokemon(It.IsAny<string>(), It.IsAny<Models.Translation>())).ReturnsAsync(new ServiceResult<TranslatedPokemon>(Result.NoTranslation, $"No translation for {translation}", null));
+			var controller = new PokemonController(_mockLoggerFactory, _mockPokespeareWorker.Object);
+
+			// Act
+			var result = await controller.Index(pokemonName, translation.ToString());
+
+			// Assert
+			var value = result.Should().BeNoContentResult();
+		}
+
+		[Test]
+		public async Task GivenErrorResult_WhenTranslated_ThenControllerShouldReturnBadRequest()
+		{
+			// Arrange
+			string pokemonName = "Test Pokemon";
+			Translation translation = Translation.Shakespeare;
+
+			_mockPokespeareWorker.Setup(pw => pw.TranslatePokemon(It.IsAny<string>(), It.IsAny<Models.Translation>())).ReturnsAsync(new ServiceResult<TranslatedPokemon>(Result.Error, $"No translation for {translation}", null));
+			var controller = new PokemonController(_mockLoggerFactory, _mockPokespeareWorker.Object);
+
+			// Act
+			var result = await controller.Index(pokemonName, translation.ToString());
+
+			// Assert
+			var value = result.Should().BeBadRequestResult();
 		}
 	}
 }
