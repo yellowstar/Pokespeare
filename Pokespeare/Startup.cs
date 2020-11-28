@@ -3,8 +3,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Pokespeare.Providers.Interfaces;
+using Pokespeare.Providers.Pokemon;
 using Pokespeare.Service;
 using Pokespeare.Service.Interfaces;
+using PokeApiNet;
+using PokeApiNet.Interfaces;
+using System.Reflection;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Pokespeare
 {
@@ -22,6 +29,9 @@ namespace Pokespeare
 		{
 			services.AddControllers();
 			services.AddSingleton<IPokespeareWorker, PokespeareWorker>();
+			services.AddSingleton<IPokeApiClient, PokeApiClient>();
+			services.AddSingleton<IPokemonProvider, PokemonProvider>();
+			ConfigureDynamicServices(services);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +50,23 @@ namespace Pokespeare
 			{
 				endpoints.MapControllers();
 			});
+		}
+
+		private static void ConfigureDynamicServices(IServiceCollection services)
+		{
+			List<Assembly> assemblies = new List<Assembly>();
+
+			foreach (string assemblyPath in Directory.GetFiles(System.AppDomain.CurrentDomain.BaseDirectory, "*.dll", SearchOption.AllDirectories))
+			{
+				var assembly = System.Runtime.Loader.AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyPath);
+				assemblies.Add(assembly);
+			}
+			//.. register
+			services.Scan(scan => scan
+			.FromAssemblies(assemblies)
+			.AddClasses(classes => classes.AssignableTo<ITranslationProvider>(), publicOnly: false)
+			.AsImplementedInterfaces()
+			.WithSingletonLifetime());
 		}
 	}
 }

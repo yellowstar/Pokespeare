@@ -15,7 +15,7 @@ namespace Pokespeare.Service.Interfaces
 		/// Translated the Pokemon by retrieving the relevant Pokemon via the Api and then translating the text via the translation Api
 		/// </summary>
 		/// <param name="pokemonName">string containing the name of the Pokemon</param>
-		/// <param name="translation">Translation enum with the 'language' to which the pokemon should be translated</param>
+		/// <param name="translation">Translation enum with the 'language' to which the Pokemon should be translated</param>
 		/// <returns>The translated Pokemon</returns>
 		Task<ServiceResult<TranslatedPokemon>> TranslatePokemon(string pokemonName, Translation translation);
 	}

@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Pokespeare.Providers.Interfaces\Pokespeare.Providers.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="PokeApiNet">
       <HintPath>..\Solution Files\PokeApiNet.dll</HintPath>
     </Reference>

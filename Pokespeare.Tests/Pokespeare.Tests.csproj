@@ -20,4 +20,10 @@
     <ProjectReference Include="..\Pokespeare\Pokespeare.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="PokeApiNet">
+      <HintPath>..\Solution Files\PokeApiNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
