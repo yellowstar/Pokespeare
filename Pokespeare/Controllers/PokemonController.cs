@@ -28,7 +28,6 @@ namespace Pokespeare.Controllers
 		{
 			_logger.LogDebug($"Pokemon translation invoked with Pokemon name: {pokemonName}");
 
-			// TODO: Convert the incoming translation into the requisite Translation enum
 			Translation t;
 			if (!Enum.TryParse<Translation>(translation, true, out t))
 			{
