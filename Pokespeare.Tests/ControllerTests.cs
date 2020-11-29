@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NUnit.Framework;
-using Moq;
-using Pokespeare.Service.Interfaces;
-using Pokespeare.Models;
-using Pokespeare.Controllers;
-using Microsoft.Extensions.Logging;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentAssertions.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
+using NUnit.Framework;
+using Pokespeare.Controllers;
+using Pokespeare.Models;
+using Pokespeare.Service.Interfaces;
 using System.Threading.Tasks;
 
 namespace Pokespeare.Tests
@@ -30,7 +27,7 @@ namespace Pokespeare.Tests
 		{
 			// Arrange
 			string pokemonName = "Test Pokemon";
-			Translation translation = Translation.Shakespeare; 
+			Translation translation = Translation.Shakespeare;
 			TranslatedPokemon translatedPokemon = new TranslatedPokemon();
 
 			_mockPokespeareWorker.Setup(pw => pw.TranslatePokemon(It.IsAny<string>(), It.IsAny<Models.Translation>())).ReturnsAsync(new ServiceResult<TranslatedPokemon>(Result.OK, string.Empty, translatedPokemon));
@@ -94,7 +91,6 @@ namespace Pokespeare.Tests
 			// Assert
 			var value = result.Should().BeBadRequestResult();
 		}
-
 
 		[Test]
 		public async Task GivenInvalidTranslation_WhenTranslated_ThenControllerShouldReturnNoContent()

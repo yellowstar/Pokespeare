@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NUnit.Framework;
-using Moq;
-using Pokespeare.Service.Interfaces;
-using Pokespeare.Models;
-using Pokespeare.Controllers;
-using Microsoft.Extensions.Logging;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentAssertions.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Moq;
+using NUnit.Framework;
 using PokeApiNet.Interfaces;
+using Pokespeare.Models;
 using Pokespeare.Providers.Pokemon;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Pokespeare.Tests
 {

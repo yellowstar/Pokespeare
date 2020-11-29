@@ -3,9 +3,7 @@ using Pokespeare.Models;
 using Pokespeare.Providers.Interfaces;
 using Pokespeare.Service.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Pokespeare.Service
@@ -15,6 +13,7 @@ namespace Pokespeare.Service
 		private readonly ILoggerFactory _loggerFactory;
 		private readonly IPokemonProvider _pokemonProvider;
 		private readonly ILogger<PokespeareWorker> _logger;
+
 		public PokespeareWorker(ILoggerFactory loggerFactory, IPokemonProvider pokemonProvider)
 		{
 			_loggerFactory = loggerFactory;
@@ -32,7 +31,7 @@ namespace Pokespeare.Service
 			{
 				return new ServiceResult<TranslatedPokemon>(
 					pokemonResult != null ? pokemonResult.Result : Result.Error,
-					pokemonResult != null ? pokemonResult.Message : "Error retrieving Pokemon", 
+					pokemonResult != null ? pokemonResult.Message : "Error retrieving Pokemon",
 					null
 				);
 			}

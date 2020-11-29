@@ -1,7 +1,5 @@
 ﻿using Pokespeare.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Pokespeare.Providers.Interfaces
 {
