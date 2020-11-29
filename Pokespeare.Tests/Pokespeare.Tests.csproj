@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Pokespeare.Models\Pokespeare.Models.csproj" />
+    <ProjectReference Include="..\Pokespeare.Providers.Interfaces\Pokespeare.Providers.Interfaces.csproj" />
+    <ProjectReference Include="..\Pokespeare.Providers.Pokemon\Pokespeare.Providers.Pokemon.csproj" />
     <ProjectReference Include="..\Pokespeare.Service\Pokespeare.Service.csproj" />
     <ProjectReference Include="..\Pokespeare\Pokespeare.csproj" />
   </ItemGroup>

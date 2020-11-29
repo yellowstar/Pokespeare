@@ -29,12 +29,26 @@ namespace Pokespeare.Controllers
 			_logger.LogDebug($"Pokemon translation invoked with Pokemon name: {pokemonName}");
 
 			Translation t;
-			if (!Enum.TryParse<Translation>(translation, true, out t))
+
+			if (string.IsNullOrWhiteSpace(translation))
 			{
-				return NoContent();
+				// If no specific 'language' is selected default to Shakespeare
+				t = Translation.Shakespeare;
+			}
+			else
+			{
+				if (!Enum.TryParse<Translation>(translation, true, out t))
+				{
+					return NoContent();
+				}
 			}
 
 			var result = await _pokespeareWorker.TranslatePokemon(pokemonName, t);
+
+			if (result == null)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError);
+			}
 
 			_logger.LogDebug($"{result.Result}: {result.Message}");
 
