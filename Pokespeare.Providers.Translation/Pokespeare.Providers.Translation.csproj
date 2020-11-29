@@ -5,17 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Refit" Version="5.2.4" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="5.2.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Pokespeare.Models\Pokespeare.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="PokeApiNet">
-      <HintPath>..\Solution Files\PokeApiNet.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Pokespeare.Providers.Interfaces\Pokespeare.Providers.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

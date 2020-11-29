@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokespeare", "Pokespeare\Pokespeare.csproj", "{11EC551F-750A-4965-B711-8721F118EFCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokespeare", "Pokespeare\Pokespeare.csproj", "{11EC551F-750A-4965-B711-8721F118EFCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokespeare.Tests", "Pokespeare.Tests\Pokespeare.Tests.csproj", "{4522241F-8496-4DD5-8A86-DFF769C571C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokespeare.Tests", "Pokespeare.Tests\Pokespeare.Tests.csproj", "{4522241F-8496-4DD5-8A86-DFF769C571C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokespeare.Models", "Pokespeare.Models\Pokespeare.Models.csproj", "{DA1A8C64-726B-4FB5-A458-8CD59B75FB30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokespeare.Models", "Pokespeare.Models\Pokespeare.Models.csproj", "{DA1A8C64-726B-4FB5-A458-8CD59B75FB30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokespeare.Service", "Pokespeare.Service\Pokespeare.Service.csproj", "{73470138-61AC-470C-9D64-99D607CACF34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokespeare.Service", "Pokespeare.Service\Pokespeare.Service.csproj", "{73470138-61AC-470C-9D64-99D607CACF34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokespeare.Providers.Pokemon", "Pokespeare.Providers.Pokemon\Pokespeare.Providers.Pokemon.csproj", "{F5EE105B-7B3A-4F5B-9AD5-1F6F22DA4C03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokespeare.Providers.Pokemon", "Pokespeare.Providers.Pokemon\Pokespeare.Providers.Pokemon.csproj", "{F5EE105B-7B3A-4F5B-9AD5-1F6F22DA4C03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokespeare.Providers.Interfaces", "Pokespeare.Providers.Interfaces\Pokespeare.Providers.Interfaces.csproj", "{0D713262-E166-4E6F-BCF7-CC5E0DE347C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokespeare.Providers.Interfaces", "Pokespeare.Providers.Interfaces\Pokespeare.Providers.Interfaces.csproj", "{0D713262-E166-4E6F-BCF7-CC5E0DE347C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokespeare.Providers.Translation", "Pokespeare.Providers.Translation\Pokespeare.Providers.Translation.csproj", "{BE7FC520-E208-4D90-9067-2BC3D75BF422}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{0D713262-E166-4E6F-BCF7-CC5E0DE347C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D713262-E166-4E6F-BCF7-CC5E0DE347C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D713262-E166-4E6F-BCF7-CC5E0DE347C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE7FC520-E208-4D90-9067-2BC3D75BF422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE7FC520-E208-4D90-9067-2BC3D75BF422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE7FC520-E208-4D90-9067-2BC3D75BF422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE7FC520-E208-4D90-9067-2BC3D75BF422}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

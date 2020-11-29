@@ -19,7 +19,7 @@ namespace Pokespeare.Tests
 		[SetUp]
 		public void Setup()
 		{
-			_mockPokeApiClient = new Mock<IPokeApiClient>(MockBehavior.Loose);
+			_mockPokeApiClient = new Mock<IPokeApiClient>(MockBehavior.Loose);  // Ideally this would be strict, but for the sake of brevity setting to Loose in this instance
 			_mockLoggerFactory = new Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory();
 		}
 

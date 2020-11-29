@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Kubernetes.Tools.Targets" Version="1.1.0" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="5.2.4" />
     <PackageReference Include="Scrutor.AspNetCore" Version="1.0.0" />
   </ItemGroup>
 
@@ -17,6 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Pokespeare.Models\Pokespeare.Models.csproj" />
+    <ProjectReference Include="..\Pokespeare.Providers.Interfaces\Pokespeare.Providers.Interfaces.csproj" />
+    <ProjectReference Include="..\Pokespeare.Providers.Translation\Pokespeare.Providers.Translation.csproj" />
     <ProjectReference Include="..\Pokespeare.Service\Pokespeare.Service.csproj" />
   </ItemGroup>
 

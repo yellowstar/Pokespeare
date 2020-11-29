@@ -1,5 +1,6 @@
 ﻿using Pokespeare.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Pokespeare.Providers.Interfaces
 {
@@ -13,13 +14,13 @@ namespace Pokespeare.Providers.Interfaces
 		/// </summary>
 		/// <param name="translation">A Translation enum indicating the required language</param>
 		/// <returns>bool to indicate if the required language is supported</returns>
-		bool SupportsLanguage(Translation translation);
+		bool SupportsTranslation(Translation translation);
 
 		/// <summary>
 		/// Translates the given items into the required language that is handled by the specific translation provider
 		/// </summary>
 		/// <param name="translationRequests">A list of text items to be translated</param>
 		/// <returns>An list of translated text items</returns>
-		IEnumerable<TranslationResponse> TranslatedPokemon(IEnumerable<TranslationRequest> translationRequests);
+		Task<IEnumerable<TranslationResponse>> TranslatedPokemon(IEnumerable<TranslationRequest> translationRequests);
 	}
 }

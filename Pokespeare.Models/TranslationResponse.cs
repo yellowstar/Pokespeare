@@ -6,7 +6,13 @@ namespace Pokespeare.Models
 {
 	public class TranslationResponse
 	{
-		string Property { get; }
-		string TranslatedText { get; }
+		public TranslationResponse(string property, string text)
+		{
+			Property = property;
+			TranslatedText = text;
+		}
+
+		public string Property { get; }
+		public string TranslatedText { get; }
 	}
 }

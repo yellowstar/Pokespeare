@@ -12,11 +12,16 @@ using PokeApiNet.Interfaces;
 using System.Reflection;
 using System.Collections.Generic;
 using System.IO;
+using Refit;
+using System;
 
 namespace Pokespeare
 {
 	public class Startup
 	{
+		// Get this from config eventually
+		private readonly string _translationUrl = "https://api.funtranslations.com/translate";
+
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -31,6 +36,9 @@ namespace Pokespeare
 			services.AddSingleton<IPokespeareWorker, PokespeareWorker>();
 			services.AddSingleton<IPokeApiClient, PokeApiClient>();
 			services.AddSingleton<IPokemonProvider, PokemonProvider>();
+			services.AddRefitClient<ITranslationApi>()
+				.ConfigureHttpClient(c => c.BaseAddress = new Uri(_translationUrl));
+
 			ConfigureDynamicServices(services);
 		}
 
