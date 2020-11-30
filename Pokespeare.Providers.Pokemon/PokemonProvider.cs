@@ -4,6 +4,7 @@ using Pokespeare.Models;
 using Pokespeare.Providers.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using PokeApiNet;
@@ -34,8 +35,35 @@ namespace Pokespeare.Providers.Pokemon
 
 				pokemonResult = new ServiceResult<PokeApiNet.Pokemon>(Result.OK, string.Empty, pokemon);
 			}
+			catch (WebException ex) when ((ex.Response as HttpWebResponse)?.StatusCode == HttpStatusCode.NotFound)
+			{
+				_logger.LogError($"Error retrieving {pokemonName}: {ex.Message} @ {ex.StackTrace}");
+				pokemonResult = new ServiceResult<PokeApiNet.Pokemon>(Result.NotFound, $"{pokemonName} does not appear to be a valid Pokemon", null);
+			}
+			catch (WebException ex)
+			{
+				// handle other web exceptions
+				_logger.LogError($"Error retrieving {pokemonName}: {ex.Message} @ {ex.StackTrace}");
+				pokemonResult = new ServiceResult<PokeApiNet.Pokemon>(Result.Error, ex.Message, null);
+			}
 			catch (Exception e)
 			{
+				if (string.Equals(e.Source, "System.Net.HTTP", StringComparison.InvariantCultureIgnoreCase))
+				{
+					// It is an HTTP error, which the PokeApiNet client just throws as a standard exception :-(
+					if (e.Message.Contains("404"))
+					{
+						// Can probably assume this is a 404 Not Found error
+						_logger.LogError($"Error retrieving {pokemonName}: {e.Message} @ {e.StackTrace}");
+						pokemonResult = new ServiceResult<PokeApiNet.Pokemon>(Result.NotFound, $"{pokemonName} does not appear to be a valid Pokemon", null);
+
+					}
+					else
+					{
+						_logger.LogError($"Error retrieving {pokemonName}: {e.Message} @ {e.StackTrace}");
+						pokemonResult = new ServiceResult<PokeApiNet.Pokemon>(Result.Error, e.Message, null);
+					}
+				}
 				_logger.LogError($"Error retrieving {pokemonName}: {e.Message} @ {e.StackTrace}");
 				pokemonResult = new ServiceResult<PokeApiNet.Pokemon>(Result.Error, e.Message, null);
 			}
