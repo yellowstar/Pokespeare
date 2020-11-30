@@ -48,24 +48,18 @@ namespace Pokespeare.Providers.Pokemon
 			}
 			catch (Exception e)
 			{
-				if (string.Equals(e.Source, "System.Net.HTTP", StringComparison.InvariantCultureIgnoreCase))
+				// It is an HTTP error, which the PokeApiNet client just throws as a standard exception :-(
+				if (e.Message.Contains("404"))
 				{
-					// It is an HTTP error, which the PokeApiNet client just throws as a standard exception :-(
-					if (e.Message.Contains("404"))
-					{
-						// Can probably assume this is a 404 Not Found error
-						_logger.LogError($"Error retrieving {pokemonName}: {e.Message} @ {e.StackTrace}");
-						pokemonResult = new ServiceResult<PokeApiNet.Pokemon>(Result.NotFound, $"{pokemonName} does not appear to be a valid Pokemon", null);
-
-					}
-					else
-					{
-						_logger.LogError($"Error retrieving {pokemonName}: {e.Message} @ {e.StackTrace}");
-						pokemonResult = new ServiceResult<PokeApiNet.Pokemon>(Result.Error, e.Message, null);
-					}
+					// Can probably assume this is a 404 Not Found error
+					_logger.LogError($"Error retrieving {pokemonName}: {e.Message} @ {e.StackTrace}");
+					pokemonResult = new ServiceResult<PokeApiNet.Pokemon>(Result.NotFound, $"{pokemonName} does not appear to be a valid Pokemon", null);
 				}
-				_logger.LogError($"Error retrieving {pokemonName}: {e.Message} @ {e.StackTrace}");
-				pokemonResult = new ServiceResult<PokeApiNet.Pokemon>(Result.Error, e.Message, null);
+				else
+				{
+					_logger.LogError($"Error retrieving {pokemonName}: {e.Message} @ {e.StackTrace}");
+					pokemonResult = new ServiceResult<PokeApiNet.Pokemon>(Result.Error, e.Message, null);
+				}
 			}
 
 			return pokemonResult;

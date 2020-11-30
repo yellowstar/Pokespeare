@@ -19,7 +19,6 @@ namespace Pokespeare.Providers.Translation
 			_logger = _loggerFactory.CreateLogger<ITranslationProvider>();
 			_supportedTranslation = supportedTranslation;
 			_translationUrl = translationUrl;
-			// Refit needs to be injected as well
 			_translationApi = translationApi;
 		}
 

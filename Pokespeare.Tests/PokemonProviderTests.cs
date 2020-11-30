@@ -6,6 +6,7 @@ using NUnit.Framework;
 using PokeApiNet.Interfaces;
 using Pokespeare.Models;
 using Pokespeare.Providers.Pokemon;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -46,6 +47,29 @@ namespace Pokespeare.Tests
 			pokemonResult.Should().BeOfType(typeof(ServiceResult<PokeApiNet.Pokemon>));
 			pokemonResult.Content.Should().NotBeNull();
 			pokemonResult.Content.Name.Should().Be(pokemonName);
+			pokemonResult.Result.Should().Be(Result.OK);
+		}
+
+		[Test]
+		public async Task GivenApiThrowsHTTPException_WhenResourceRequested_ThenProviderShouldReturnNotFoundResult()
+		{
+			// Arrange
+			string pokemonName = "NonExistant";
+			var thrownException = new Exception("404 Not Found")
+			{
+				Source = "System.Net.HTTP"
+			};
+			_mockPokeApiClient.Setup(p => p.GetResourceAsync<PokeApiNet.Pokemon>(It.IsAny<string>())).ThrowsAsync(thrownException);
+			var pokemonProvider = new PokemonProvider(_mockLoggerFactory, _mockPokeApiClient.Object);
+
+			// Act
+			var pokemonResult = await pokemonProvider.GetPokemon(pokemonName);
+
+			// Assert
+			pokemonResult.Should().BeOfType(typeof(ServiceResult<PokeApiNet.Pokemon>));
+			pokemonResult.Content.Should().BeNull();
+			pokemonResult.Message.Should().NotBeNull();
+			pokemonResult.Result.Should().Be(Result.NotFound);
 		}
 
 		[Test]

@@ -58,9 +58,9 @@ namespace Pokespeare.Service
 				);
 			}
 
-			var enAbilityFlavorText = speciesResult.Content.FlavorTextEntries.Where(f => string.Equals(f.Language.Name, "en", StringComparison.InvariantCultureIgnoreCase)).Take(5);
+			// Only take the first item because of the rate limiting on the public translation API
+			var enAbilityFlavorText = speciesResult.Content.FlavorTextEntries.Where(f => string.Equals(f.Language.Name, "en", StringComparison.InvariantCultureIgnoreCase)).Take(1);
 
-			// Now translate
 			var translationResult = await _translationProvider.TranslatedPokemon(enAbilityFlavorText.Select(e => new TranslationRequest(e.Version.Name, e.FlavorText)));
 
 			result = new ServiceResult<TranslatedPokemon>(Result.OK, string.Empty, new TranslatedPokemon(pokemonName, translationResult.Select(t => t.TranslatedText).ToList()));
