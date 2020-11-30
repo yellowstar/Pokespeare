@@ -1,0 +1,9 @@
+{
+	"cloudcode.kubeconfigs": [
+		{
+			"name": "d:\\Develop\\Pokespeare\\Pokespeare\\azds.yaml",
+			"configPath": "d:\\Develop\\Pokespeare\\Pokespeare\\azds.yaml"
+		}
+	],
+	"cloudcode.active-kubeconfig": "d:\\Develop\\Pokespeare\\Pokespeare\\azds.yaml"
+}
